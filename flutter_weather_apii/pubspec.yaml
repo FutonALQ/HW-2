@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.1.0
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +19,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+
+    - lib\assets\imges\rain.gif
+
+    - lib/assets/ws.json
+    - lib/assets/images/ws.png
+    - lib\assets\images\ws2.png
+    - lib\assets\images\ws4.png
+
+
