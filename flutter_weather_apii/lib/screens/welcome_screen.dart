@@ -12,6 +12,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -78,5 +79,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       ),
     );
+main
   }
 }
