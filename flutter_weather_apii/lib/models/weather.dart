@@ -1,6 +1,7 @@
 class Weather {
   Location? location;
   Current? current;
+  
 
   Weather({this.location, this.current});
 
