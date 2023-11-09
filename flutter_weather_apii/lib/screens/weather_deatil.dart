@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_apii/models/weather.dart';
+import 'package:flutter_weather_apii/servises/weather_api.dart';
 //import 'package:flutter_weather_apii/servises/weather_api.dart';
 import 'package:flutter_weather_apii/wedgets/coustom_wedgets.dart';
 Weather currentweather =Weather();
 
 class WeatherDetail extends StatefulWidget {
-  const WeatherDetail(  {Key? key, required this.cityName, required String this.temperature, required String this.condition, required String this.highTemp, required String this.lowTemp,required this.time, }) : super(key: key);
+  const WeatherDetail(  {Key? key,  required String this.temperature, required String this.condition, required String this.highTemp, required String this.lowTemp, required this.cityName}) : super(key: key);
   final cityName;
 final temperature;
 final condition;
 final highTemp;
 final lowTemp;
-final time;
+
   @override
   State<WeatherDetail> createState() => _WeatherDetailState();
 }
@@ -21,7 +22,7 @@ class _WeatherDetailState extends State<WeatherDetail> {
   String condition = "";
   String highTemp = "";
   String lowTemp = "";
-  String time="";
+  
   
 
   @override
@@ -69,7 +70,7 @@ class _WeatherDetailState extends State<WeatherDetail> {
                 
                 children: [
                   SizedBox(width: 20), 
-              Forecasts("sunday","lib\\assets\\imges\\rain.gif",(widget.temperature)),
+              Forecasts("sunday","lib\\assets\\imges\\rain.gif",widget.temperature),
               SizedBox(width: 20), 
                  Forecasts("monday","lib\\assets\\imges\\sun.gif","20"),
                   SizedBox(width: 20),
@@ -138,7 +139,7 @@ class _WeatherDetailState extends State<WeatherDetail> {
       condition = weather.current?.condition?.text ?? " Not there";
       highTemp = "${weather.current?.tempC}" ?? "Not there";
       lowTemp = "${weather.current?.tempC}" ?? "Not there";
-      time="${weather.location!.localtime}" ?? "Not there";
+   
      
     });
   }

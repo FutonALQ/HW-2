@@ -63,7 +63,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   InkWell(
                    onTap: ()  {
                     
-                    performSearch(context, cityController.text);
+                    performSearch(cityController.text);
    
                     },
                     child: const Icon(Icons.search),
@@ -99,32 +99,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
       ),
     );
   }
- void performSearch(BuildContext context, String city) async {
-  final weather = await getWeather(city);
-  setState(() {
-    cityName = weather.location?.name ?? "City Name Not Available";
-    temperature = "${weather.current?.tempC}" ?? "Temperature Not Available";
-    condition = weather.current?.condition?.text ?? "Condition Not Available";
-    highTemp = "${weather.current?.tempC}" ?? "High Temp Not Available"; 
-    lowTemp = "${weather.current?.tempC}" ?? "Low Temp Not Available"; 
-  });
+//  void performSearch(BuildContext context, String city) async {
+//   final weather = await getWeather(city);
+//   setState(() {
+//     cityName = weather.location?.name ?? "City Name Not Available";
+//     temperature = "${weather.current?.tempC}" ?? "Temperature Not Available";
+//     condition = weather.current?.condition?.text ?? "Condition Not Available";
+//     highTemp = "${weather.current?.tempC}" ?? "High Temp Not Available"; 
+//     lowTemp = "${weather.current?.tempC}" ?? "Low Temp Not Available"; 
+//   });
 
 
-  // Now that the state is updated, navigate to the detail screen.
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => WeatherDetail(
-        cityName: cityName,
-        temperature: temperature,
-        condition: condition,
-        highTemp: highTemp,
-        lowTemp: lowTemp, time: null,
-        
-      ),
-    ),
-  );
-}
+
 
   void performSearch(String city) async {
     final weather = await getWeather(city);
@@ -148,77 +134,95 @@ class WeatherContainer extends StatelessWidget {
   final VoidCallback onDelete;
 
   WeatherContainer({required this.weatherInfo, required this.onDelete});
+  
+ 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.purple.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
+    return InkWell(
+       onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WeatherDetail(
+              cityName: weatherInfo.cityName,
+              temperature: weatherInfo.temperature,
+              condition: weatherInfo.condition,
+              highTemp: weatherInfo.highTemp,
+              lowTemp: weatherInfo.lowTemp,
+            ),
           ),
-        ],
-      ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.purple[800],
+        );
+},
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.purple.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.purple[800],
+                  ),
+                  onPressed: onDelete,
                 ),
-                onPressed: onDelete,
-              ),
-            ],
-          ),
-          Text(
-            "${weatherInfo.cityName}",
-            style: TextStyle(
-              fontSize: 40,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontFamily: "DM Serif Display",
+              ],
             ),
-          ),
-          Text(
-            "${weatherInfo.temperature}",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "${weatherInfo.condition}",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+            Text(
+              "${weatherInfo.cityName}",
+              style: TextStyle(
+                fontSize: 40,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: "DM Serif Display",
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "H: ${weatherInfo.highTemp}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            Text(
+              "${weatherInfo.temperature}",
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "${weatherInfo.condition}",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "L: ${weatherInfo.lowTemp}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-        ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "H: ${weatherInfo.highTemp}",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  "L: ${weatherInfo.lowTemp}",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
