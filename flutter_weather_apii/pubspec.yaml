@@ -29,5 +29,10 @@ flutter:
     - lib/assets/images/ws.png
     - lib\assets\images\ws2.png
     - lib\assets\images\ws4.png
+  fonts:
+    - family: DM Serif Display
+      fonts:
+        - asset: lib\fonts\DMSerifDisplay-Italic.ttf
+          weight: 400
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_apii/models/weather.dart';
-import 'package:flutter_weather_apii/servises/weather_api.dart';
+//import 'package:flutter_weather_apii/servises/weather_api.dart';
 import 'package:flutter_weather_apii/wedgets/coustom_wedgets.dart';
 Weather currentweather =Weather();
 
