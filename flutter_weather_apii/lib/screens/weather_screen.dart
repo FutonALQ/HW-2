@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_apii/screens/weather_deatil.dart';
 import 'package:flutter_weather_apii/servises/weather_api.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -60,8 +61,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      performSearch(cityController.text);
+                   onTap: ()  {
+                    
+                    performSearch(context, cityController.text);
+   
                     },
                     child: const Icon(Icons.search),
                   ),
@@ -96,6 +99,32 @@ class _WeatherScreenState extends State<WeatherScreen> {
       ),
     );
   }
+ void performSearch(BuildContext context, String city) async {
+  final weather = await getWeather(city);
+  setState(() {
+    cityName = weather.location?.name ?? "City Name Not Available";
+    temperature = "${weather.current?.tempC}" ?? "Temperature Not Available";
+    condition = weather.current?.condition?.text ?? "Condition Not Available";
+    highTemp = "${weather.current?.tempC}" ?? "High Temp Not Available"; 
+    lowTemp = "${weather.current?.tempC}" ?? "Low Temp Not Available"; 
+  });
+
+
+  // Now that the state is updated, navigate to the detail screen.
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => WeatherDetail(
+        cityName: cityName,
+        temperature: temperature,
+        condition: condition,
+        highTemp: highTemp,
+        lowTemp: lowTemp, time: null,
+        
+      ),
+    ),
+  );
+}
 
   void performSearch(String city) async {
     final weather = await getWeather(city);
@@ -111,6 +140,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       );
     });
   }
+
 }
 
 class WeatherContainer extends StatelessWidget {

@@ -5,15 +5,28 @@ import 'package:flutter_weather_apii/wedgets/coustom_wedgets.dart';
 Weather currentweather =Weather();
 
 class WeatherDetail extends StatefulWidget {
-  const WeatherDetail({Key? key}) : super(key: key);
-
+  const WeatherDetail(  {Key? key, required this.cityName, required String this.temperature, required String this.condition, required String this.highTemp, required String this.lowTemp,required this.time, }) : super(key: key);
+  final cityName;
+final temperature;
+final condition;
+final highTemp;
+final lowTemp;
+final time;
   @override
   State<WeatherDetail> createState() => _WeatherDetailState();
 }
-
 class _WeatherDetailState extends State<WeatherDetail> {
+  String cityName = "";
+  String temperature = "";
+  String condition = "";
+  String highTemp = "";
+  String lowTemp = "";
+  String time="";
+  
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       // Instead of using backgroundColor, we'll use a Container with decoration
       body: Container(
@@ -32,14 +45,14 @@ class _WeatherDetailState extends State<WeatherDetail> {
             SizedBox(height: 100,),
             Row(children: [
               SizedBox(width: 110,),
-              Text("North America",style: TextStyle(fontSize: 30,color: Colors.white),)
+              Text("${widget.cityName}",style: TextStyle(fontSize: 30,color: Colors.white),)
             ],),
             SizedBox(height: 30,)
             ,Row(children: [
               SizedBox(width: 110,),
-              Text("Max:24",style: TextStyle(fontSize: 24,color: Colors.white)),
+              Text("Max:${widget.highTemp}",style: TextStyle(fontSize: 24,color: Colors.white)),
               SizedBox(width: 10,),
-              Text("Min:18",style: TextStyle(fontSize: 24,color: Colors.white))
+              Text("Min:${widget.lowTemp}",style: TextStyle(fontSize: 24,color: Colors.white))
             ],),
             SizedBox(height: 30,),
             Padding(
@@ -56,20 +69,20 @@ class _WeatherDetailState extends State<WeatherDetail> {
                 
                 children: [
                   SizedBox(width: 20), 
-              Forecasts(),
+              Forecasts("sunday","lib\\assets\\imges\\rain.gif",(widget.temperature)),
               SizedBox(width: 20), 
-               Forecasts(),
-               SizedBox(width: 20), 
-                Forecasts(),
-                SizedBox(width: 20), 
-                 Forecasts(),
-                 SizedBox(width: 20), 
-                  Forecasts(),
-                  SizedBox(width: 20), 
-                   Forecasts(),
-                   SizedBox(width: 20), 
-                    Forecasts(),
-                    SizedBox(width: 20), 
+                 Forecasts("monday","lib\\assets\\imges\\sun.gif","20"),
+                  SizedBox(width: 20),
+                  Forecasts("tusday","lib\\assets\\imges\\cloudy.gif",widget.temperature),
+                  SizedBox(width: 20),
+                   Forecasts("wednesday","lib\\assets\\imges\\cloudy.gif","14"),
+ SizedBox(width: 20),
+                    Forecasts("thursday","lib\\assets\\imges\\rain.gif","25"),
+ SizedBox(width: 20),
+                     Forecasts("tusday","lib\\assets\\imges\\cloudy.gif",widget.temperature),
+ SizedBox(width: 20),
+                      Forecasts("saturday","lib\\assets\\imges\\rain.gif",widget.temperature),
+            
               ],),
             ),
             Padding(
@@ -110,7 +123,6 @@ class _WeatherDetailState extends State<WeatherDetail> {
                 
               ],),
             ),
-            Container(width: 200,height: 40,color: Colors.amber,child: Image.network("https://media.giphy.com/media/ZLdy2L5W62WGs/giphy.gif",fit: BoxFit.cover),)
            
           ],
           
@@ -118,5 +130,18 @@ class _WeatherDetailState extends State<WeatherDetail> {
       ),
     );
   }
-
+ void performSearch(String cityName) async {
+    final weather = await getWeather(cityName);
+    setState(() {
+      cityName = weather.location?.name ?? "City Name Not Available";
+      temperature = "${weather.current?.tempC}" ?? "Not there";
+      condition = weather.current?.condition?.text ?? " Not there";
+      highTemp = "${weather.current?.tempC}" ?? "Not there";
+      lowTemp = "${weather.current?.tempC}" ?? "Not there";
+      time="${weather.location!.localtime}" ?? "Not there";
+     
+    });
+  }
 }
+
+
