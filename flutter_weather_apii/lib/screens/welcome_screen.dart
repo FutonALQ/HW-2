@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_apii/screens/weather_screen.dart';
-import 'package:lottie/lottie.dart';
+//import 'package:lottie/lottie.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -12,7 +12,6 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -39,14 +38,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'DM Serif Display'),
             ),
             Text(
               "Weather APP!",
               style: TextStyle(
                   fontSize: 30,
                   color: Colors.amber,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'DM Serif Display'),
             ),
             SizedBox(height: 50),
             Padding(
@@ -69,7 +70,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Text(
                       "LET'S KNOWING THW WEATHER!",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'DM Serif Display'),
                     ),
                   ),
                 ),
@@ -79,6 +82,5 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       ),
     );
-main
   }
 }
