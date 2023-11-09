@@ -20,8 +20,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+
+    - lib\assets\imges\rain.gif
+    - lib\assets\imges\sun.gif
+    - lib\assets\imges\cloudy.gif
+
     - lib/assets/ws.json
     - lib/assets/images/ws.png
     - lib\assets\images\ws2.png
     - lib\assets\images\ws4.png
+  fonts:
+    - family: DM Serif Display
+      fonts:
+        - asset: lib\fonts\DMSerifDisplay-Italic.ttf
+          weight: 400
+
 
